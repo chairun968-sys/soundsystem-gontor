@@ -10,6 +10,8 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- QRCode.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <script>
     tailwind.config = {
@@ -1258,6 +1260,21 @@
       }
     ];
 
+    // -------------------------------------------------------------------------
+    // SUPABASE CLIENT CONFIGURATION
+    // -------------------------------------------------------------------------
+    const SUPABASE_URL = 'https://bcwlpkhrkrxjvllvmgpa.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjd2xwa2hya3J4anZsbHZtZ3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ0NjU2NzAsImV4cCI6MjExMDA0MTY3MH0.N9nvDvKgGWvVYSzSmCdjbeYll_uyA7zIB-rjKmcZsus';
+    
+    let supabaseClient = null;
+    try {
+      if (window.supabase) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch (e) {
+      console.warn('Supabase Client fallback to offline mode', e);
+    }
+
     let currentRole = 'admin';
     let keranjangCheckout = [];
     let scannerContext = 'checkout';
@@ -1267,7 +1284,35 @@
       renderGridAset(DATA_ASET);
       muatItemCheckin('TRX-202611-004');
       initWaveform();
+      muatDataDariSupabase();
     });
+
+    // Ambil data live dari tabel Supabase jika sudah ada
+    async function muatDataDariSupabase() {
+      if (!supabaseClient) return;
+      try {
+        const { data, error } = await supabaseClient.from('snd_aset').select('*').order('kode_unik');
+        if (!error && data && data.length > 0) {
+          DATA_ASET = data.map(item => ({
+            id: item.id,
+            kode: item.kode_unik,
+            nama: item.nama,
+            kategori: (item.kode_unik.startsWith('SPK') ? 'speaker' : item.kode_unik.startsWith('MIC') ? 'mic' : item.kode_unik.startsWith('MIX') ? 'mixer' : item.kode_unik.startsWith('KBL') ? 'kabel' : 'stand'),
+            merk: item.merk,
+            tahun: item.tahun_pengadaan || '2024',
+            lokasi: 'Gudang Sound System G4',
+            kondisi: item.kondisi || 'baik',
+            status: item.status || 'tersedia',
+            foto: item.foto_url || 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400&auto=format&fit=crop&q=80',
+            peminjamTerakhir: item.peminjam_terakhir || 'Standby di gudang'
+          }));
+          renderGridAset(DATA_ASET);
+          showToast("⚡ Terhubung live ke Supabase Cloud Database!", "sukses");
+        }
+      } catch (err) {
+        // offline fallback
+      }
+    }
 
     // -------------------------------------------------------------------------
     // WAVEFORM AUDIO SPECTRUM ANIMATION
