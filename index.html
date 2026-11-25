@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Manajemen & Inventaris Sound System - PMDG Kampus 4</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            royal: {
+              950: '#030812',
+              900: '#061122',
+              850: '#0a1a33',
+              800: '#0f2444',
+              700: '#16355e',
+              600: '#1e487f',
+            },
+            gold: {
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Cinzel:wght@600;700;800;900&display=swap');
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #030812;
+      color: #e2e8f0;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(2, 119, 189, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(217, 119, 6, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(5, 150, 105, 0.08) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+
+    /* Gold Foil Text Gradient */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 45%, #d97706 75%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Metallic Gold Border Glow */
+    .gold-border-glow {
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Glassmorphism Luxury Card */
+    .glass-luxury {
+      background: rgba(10, 26, 51, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-luxury-hover:hover {
+      background: rgba(15, 36, 68, 0.85);
+      border-color: rgba(251, 191, 36, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px 0 rgba(245, 158, 11, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Laser Scanner Animation */
+    .scanner-laser {
+      animation: scanLaser 2s infinite ease-in-out;
+    }
+    @keyframes scanLaser {
+      0% { top: 5%; opacity: 0.2; }
+      50% { top: 85%; opacity: 1; filter: drop-shadow(0 0 8px #f43f5e); }
+      100% { top: 5%; opacity: 0.2; }
+    }
+
+    /* Custom Scrollbar */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(245, 158, 11, 0.3);
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(245, 158, 11, 0.6);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
+
+  <!-- ========================================================================= -->
+  <!-- 1. MAJESTIC TOP BAR & SOUND VISUALIZER                                   -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-50 glass-luxury border-b border-white/10 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 sm:h-24">
+        
+        <!-- Lambang Megah & Identitas Resmi Gontor 4 -->
+        <div class="flex items-center gap-3.5">
+          <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-amber-500 to-sky-500 rounded-2xl blur-sm opacity-60 group-hover:opacity-100 transition duration-300"></div>
+            <div class="relative h-13 w-13 sm:h-14 sm:w-14 rounded-2xl bg-gradient-to-br from-royal-950 via-royal-900 to-royal-800 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-inner">
+              <i data-lucide="radio" class="h-7 w-7 text-amber-400"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-cinzel font-black text-base sm:text-lg tracking-wider gold-gradient-text uppercase">
+                GONTOR 4 ACOUSTIC
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-700/20 text-amber-300 border border-amber-400/40 text-[9px] font-black uppercase tracking-widest shadow-xs">
+                ROYAL SOUND SYSTEM
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-300 font-medium flex items-center gap-1.5 mt-0.5">
+              <span>Bagian Perlengkapan &amp; Akustik Acara</span>
+              <span class="text-amber-400/60 font-bold">•</span>
+              <span class="text-sky-300">PMDG Kampus 4 Banyuwangi</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Waveform Visualizer & Role Switcher Bar -->
+        <div class="flex items-center gap-3">
+          
+          <!-- Mini Live Audio Spectrum Waveform Canvas (Suara Panggung) -->
+          <div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-royal-950/80 border border-white/10 shadow-inner">
+            <span class="text-[9px] font-black tracking-widest text-amber-400 uppercase">Live Output</span>
+            <canvas id="waveformCanvas" width="90" height="24" class="rounded"></canvas>
+            <span class="h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
+          </div>
+
+          <!-- Role Selector Switcher Mewah -->
+          <div class="bg-royal-950/90 p-1.5 rounded-2xl border border-amber-400/30 flex items-center gap-1 text-xs shadow-xl backdrop-blur-xl">
+            <button onclick="switchRole('admin')" id="roleBtn-admin" class="role-btn px-3 py-1.5 rounded-xl font-black text-[11px] transition flex items-center gap-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 shadow-md">
+              <i data-lucide="shield-check" class="h-3.5 w-3.5"></i>
+              <span>Admin Gudang</span>
+            </button>
+
+            <button onclick="switchRole('pimpinan')" id="roleBtn-pimpinan" class="role-btn px-3 py-1.5 rounded-xl font-bold text-[11px] transition flex items-center gap-1.5 text-slate-300 hover:text-amber-200 hover:bg-white/5">
+              <i data-lucide="crown" class="h-3.5 w-3.5 text-amber-400"></i>
+              <span>Pimpinan / Ustadz</span>
+            </button>
+
+            <button onclick="switchRole('peminjam')" id="roleBtn-peminjam" class="role-btn px-3 py-1.5 rounded-xl font-bold text-[11px] transition flex items-center gap-1.5 text-slate-300 hover:text-amber-200 hover:bg-white/5">
+              <i data-lucide="users" class="h-3.5 w-3.5 text-sky-400"></i>
+              <span>Panitia Santri</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Navigation Bar Menu Mewah -->
+    <div class="bg-royal-950/95 border-t border-white/10 px-4 sm:px-6 lg:px-8 overflow-x-auto custom-scroll">
+      <div class="max-w-7xl mx-auto flex items-center gap-2 py-2.5">
+        <button onclick="showTab('dashboard')" id="nav-dashboard" class="nav-tab px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 shadow-md transition shrink-0">
+          <i data-lucide="layout-dashboard" class="h-4 w-4"></i>
+          <span>Dashboard Eksekutif</span>
+        </button>
+
+        <button onclick="showTab('inventaris')" id="nav-inventaris" class="nav-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-white/5 transition shrink-0">
+          <i data-lucide="box" class="h-4 w-4 text-amber-400"></i>
+          <span>Katalog Aset &amp; QR Label</span>
+        </button>
+
+        <button onclick="showTab('bundling')" id="nav-bundling" class="nav-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-white/5 transition shrink-0">
+          <i data-lucide="sparkles" class="h-4 w-4 text-purple-400"></i>
+          <span>Paket Panggung Akbar (Bundling)</span>
+        </button>
+
+        <button onclick="showTab('checkout')" id="nav-checkout" class="nav-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-white/5 transition shrink-0">
+          <i data-lucide="arrow-up-right" class="h-4 w-4 text-emerald-400"></i>
+          <span>Check-Out (Peminjaman)</span>
+        </button>
+
+        <button onclick="showTab('checkin')" id="nav-checkin" class="nav-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-white/5 transition shrink-0">
+          <i data-lucide="arrow-down-left" class="h-4 w-4 text-amber-400"></i>
+          <span>Check-In (Inspeksi Fisik)</span>
+        </button>
+
+        <button onclick="showTab('audit')" id="nav-audit" class="nav-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-white/5 transition shrink-0">
+          <i data-lucide="file-check-2" class="h-4 w-4 text-sky-400"></i>
+          <span>Audit Jejak Rekam &amp; Servis</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. MAIN WORKSPACE                                                         -->
+  <!-- ========================================================================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 flex-1 w-full space-y-7">
+
+    <!-- Role Status Banner (VIP Royal Badge) -->
+    <div id="roleBanner" class="p-4 rounded-3xl glass-luxury gold-border-glow flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xl relative overflow-hidden">
+      <!-- Glow ambient background -->
+      <div class="absolute -right-8 -top-8 w-44 h-44 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <div class="flex items-center gap-3.5 relative z-10">
+        <div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-700 text-royal-950 flex items-center justify-center font-black shadow-lg shrink-0">
+          <i data-lucide="shield-check" class="h-6 w-6"></i>
+        </div>
+        <div class="text-xs">
+          <p class="font-black text-amber-200 text-sm tracking-wide" id="roleTitleText">
+            Hak Akses: Petugas Piket / Admin Gudang Sound System
+          </p>
+          <p class="text-[11px] text-slate-300 mt-0.5" id="roleDescText">
+            Wewenang Penuh: Check-out QR kamera HP, verifikasi kelengkapan check-in, pencatatan kerusakan berfoto, dan input perangkat baru.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 self-end sm:self-auto relative z-10">
+        <span class="px-3 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] font-black uppercase tracking-wider">
+          Otoritas Resmi
+        </span>
+      </div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 1: DASHBOARD MONITORING EKSEKUTIF                                   -->
+    <!-- ======================================================================= -->
+    <section id="tab-dashboard" class="space-y-7">
+      
+      <!-- 4 Grand Summary Cards (Black & Gold Card Design) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Card 1: Total Aset -->
+        <div class="p-5 rounded-3xl glass-luxury glass-luxury-hover transition duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-black uppercase tracking-wider text-slate-400">Total Seluruh Aset</span>
+            <div class="h-9 w-9 rounded-xl bg-white/5 border border-white/10 text-slate-300 flex items-center justify-center">
+              <i data-lucide="database" class="h-4 w-4"></i>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-3xl sm:text-4xl font-black text-white tracking-tight" id="statTotal">148</h3>
+            <p class="text-[11px] text-slate-400 font-medium mt-1">Perangkat Akustik Terdaftar</p>
+          </div>
+          <div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-amber-400 to-amber-600 w-full"></div>
+          </div>
+        </div>
+
+        <!-- Card 2: Ready (Siap Pakai) -->
+        <div class="p-5 rounded-3xl glass-luxury glass-luxury-hover transition duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden border-emerald-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-black uppercase tracking-wider text-emerald-400">Ready (Siap Pakai)</span>
+            <div class="h-9 w-9 rounded-xl bg-emerald-500/10 border border-emerald-400/30 text-emerald-400 flex items-center justify-center shadow-xs">
+              <i data-lucide="check-circle" class="h-4 w-4"></i>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight" id="statReady">112</h3>
+            <p class="text-[11px] text-emerald-300/80 font-medium mt-1">75.6% Standby di Rak Gudang</p>
+          </div>
+          <div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald-500" style="width: 75.6%"></div>
+          </div>
+        </div>
+
+        <!-- Card 3: Sedang Dipinjam -->
+        <div class="p-5 rounded-3xl glass-luxury glass-luxury-hover transition duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden border-sky-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-black uppercase tracking-wider text-sky-400">Sedang Dipinjam</span>
+            <div class="h-9 w-9 rounded-xl bg-sky-500/10 border border-sky-400/30 text-sky-400 flex items-center justify-center shadow-xs">
+              <i data-lucide="radio" class="h-4 w-4"></i>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-3xl sm:text-4xl font-black text-sky-400 tracking-tight" id="statDipinjam">26</h3>
+            <p class="text-[11px] text-sky-300/80 font-medium mt-1">Tersebar di 4 Acara Pondok</p>
+          </div>
+          <div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-sky-500" style="width: 17.5%"></div>
+          </div>
+        </div>
+
+        <!-- Card 4: Rusak / Perlu Servis -->
+        <div class="p-5 rounded-3xl glass-luxury glass-luxury-hover transition duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden border-rose-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-black uppercase tracking-wider text-rose-400">Rusak / Servis</span>
+            <div class="h-9 w-9 rounded-xl bg-rose-500/10 border border-rose-400/30 text-rose-400 flex items-center justify-center shadow-xs">
+              <i data-lucide="alert-triangle" class="h-4 w-4"></i>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-3xl sm:text-4xl font-black text-rose-400 tracking-tight" id="statRusak">10</h3>
+            <p class="text-[11px] text-rose-300/80 font-medium mt-1">6 Ringan · 4 Berat (Di Bengkel)</p>
+          </div>
+          <div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-rose-500" style="width: 6.9%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts & Visual Health -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <!-- Grafik Donat Kondisi Fisik -->
+        <div class="p-6 rounded-3xl glass-luxury gold-border-glow space-y-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-black text-sm text-white flex items-center gap-2">
+                <i data-lucide="pie-chart" class="h-4 w-4 text-amber-400"></i>
+                <span>Kelayakan Suara &amp; Fisik</span>
+              </h3>
+              <p class="text-[11px] text-slate-400">Indeks kesehatan armada sound system</p>
+            </div>
+            <span class="px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 text-[10px] font-black">
+              Optimal
+            </span>
+          </div>
+
+          <!-- Donut SVG Representation -->
+          <div class="flex items-center justify-center py-2">
+            <div class="relative w-44 h-44 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                <!-- Track -->
+                <path class="text-slate-800/80" stroke-width="3.6" stroke="currentColor" fill="none"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <!-- Baik (76%) - Emerald -->
+                <path class="text-emerald-400" stroke-dasharray="76, 100" stroke-width="3.6" stroke="currentColor" fill="none"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <!-- Rusak Ringan (17%) - Amber -->
+                <path class="text-amber-400" stroke-dasharray="17, 100" stroke-dashoffset="-76" stroke-width="3.6" stroke="currentColor" fill="none"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <!-- Rusak Berat (7%) - Rose -->
+                <path class="text-rose-500" stroke-dasharray="7, 100" stroke-dashoffset="-93" stroke-width="3.6" stroke="currentColor" fill="none"
+                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              </svg>
+              <div class="absolute text-center">
+                <span class="text-3xl font-black text-white block tracking-tight">76%</span>
+                <span class="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Siap Tempur</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legend Mewah -->
+          <div class="grid grid-cols-3 gap-2 text-center text-xs pt-3 border-t border-white/10">
+            <div class="p-2 rounded-2xl bg-emerald-500/10 border border-emerald-400/20">
+              <span class="block text-[10px] font-bold text-emerald-300">Baik (Prima)</span>
+              <span class="font-black text-white text-base">112 Unit</span>
+            </div>
+            <div class="p-2 rounded-2xl bg-amber-500/10 border border-amber-400/20">
+              <span class="block text-[10px] font-bold text-amber-300">Rusak Ringan</span>
+              <span class="font-black text-white text-base">6 Unit</span>
+            </div>
+            <div class="p-2 rounded-2xl bg-rose-500/10 border border-rose-400/20">
+              <span class="block text-[10px] font-bold text-rose-300">Rusak Berat</span>
+              <span class="font-black text-white text-base">4 Unit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sebaran Kategori Perangkat (Audio Mixer Console Style) -->
+        <div class="lg:col-span-2 p-6 rounded-3xl glass-luxury space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-black text-sm text-white flex items-center gap-2">
+                <i data-lucide="sliders" class="h-4 w-4 text-amber-400"></i>
+                <span>Sebaran &amp; Kesiapan per Kategori Perangkat</span>
+              </h3>
+              <p class="text-[11px] text-slate-400">Kapasitas inventaris untuk menunjang acara pondok</p>
+            </div>
+            <button onclick="showTab('inventaris')" class="text-xs font-black text-amber-400 hover:text-amber-300 flex items-center gap-1 transition">
+              <span>Buka Gudang</span>
+              <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Slider / Bar Breakdown -->
+          <div class="space-y-3.5 text-xs">
+            <div class="p-2.5 rounded-2xl bg-royal-950/60 border border-white/5 space-y-1.5">
+              <div class="flex justify-between font-bold">
+                <span class="flex items-center gap-2 text-slate-200">
+                  <i data-lucide="volume-2" class="h-4 w-4 text-amber-400"></i> Active &amp; Passive Speaker Panggung
+                </span>
+                <span class="font-black text-white">32 Unit (28 Ready · 4 Servis)</span>
+              </div>
+              <div class="h-2 w-full bg-slate-900 rounded-full overflow-hidden flex">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full" style="width: 87.5%"></div>
+                <div class="bg-rose-500 h-full" style="width: 12.5%"></div>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-2xl bg-royal-950/60 border border-white/5 space-y-1.5">
+              <div class="flex justify-between font-bold">
+                <span class="flex items-center gap-2 text-slate-200">
+                  <i data-lucide="mic" class="h-4 w-4 text-purple-400"></i> Wireless &amp; Kabel Mic (Shure / Sennheiser)
+                </span>
+                <span class="font-black text-white">46 Unit (38 Ready · 8 Rusak Spul)</span>
+              </div>
+              <div class="h-2 w-full bg-slate-900 rounded-full overflow-hidden flex">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full" style="width: 82.6%"></div>
+                <div class="bg-amber-400 h-full" style="width: 17.4%"></div>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-2xl bg-royal-950/60 border border-white/5 space-y-1.5">
+              <div class="flex justify-between font-bold">
+                <span class="flex items-center gap-2 text-slate-200">
+                  <i data-lucide="sliders-horizontal" class="h-4 w-4 text-sky-400"></i> Mixer Audio Analog &amp; Digital (Yamaha/Soundcraft)
+                </span>
+                <span class="font-black text-white">8 Unit (8 Ready · 100% Prima)</span>
+              </div>
+              <div class="h-2 w-full bg-slate-900 rounded-full overflow-hidden flex">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-2xl bg-royal-950/60 border border-white/5 space-y-1.5">
+              <div class="flex justify-between font-bold">
+                <span class="flex items-center gap-2 text-slate-200">
+                  <i data-lucide="cable" class="h-4 w-4 text-amber-500"></i> Kabel XLR Canare, Snake Cable &amp; Jack
+                </span>
+                <span class="font-black text-white">52 Roll (45 Ready · 7 Rusak/Putus)</span>
+              </div>
+              <div class="h-2 w-full bg-slate-900 rounded-full overflow-hidden flex">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full" style="width: 86.5%"></div>
+                <div class="bg-rose-500 h-full" style="width: 13.5%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabel Peminjaman Aktif & Peringatan Jatuh Tempo (Overdue Row Menyala Merah) -->
+      <div class="p-6 rounded-3xl glass-luxury space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="font-black text-sm text-white flex items-center gap-2">
+              <i data-lucide="activity" class="h-4 w-4 text-amber-400"></i>
+              <span>Peminjaman Aktif di Lapangan &amp; Deteksi Keterlambatan</span>
+            </h3>
+            <p class="text-[11px] text-slate-400">Baris merah menyala menandakan peminjaman melewati batas waktu (Overdue)</p>
+          </div>
+
+          <button onclick="showTab('checkout')" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 font-black text-xs flex items-center gap-2 shadow-lg transition active:scale-95">
+            <i data-lucide="plus-circle" class="h-4 w-4"></i>
+            <span>Peminjaman Baru (Scan Out)</span>
+          </button>
+        </div>
+
+        <div class="overflow-x-auto custom-scroll">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-royal-950/80 text-slate-400 border-b border-white/10 text-[11px]">
+                <th class="py-3 px-3.5 font-black">ID &amp; Acara</th>
+                <th class="py-3 px-3.5 font-black">Penanggung Jawab</th>
+                <th class="py-3 px-3.5 font-black">Rincian Perangkat</th>
+                <th class="py-3 px-3.5 font-black">Waktu Pinjam</th>
+                <th class="py-3 px-3.5 font-black">Batas Kembali</th>
+                <th class="py-3 px-3.5 font-black text-center">Status</th>
+                <th class="py-3 px-3.5 font-black text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 font-medium">
+              <!-- Item 1: OVERDUE (Row Menyala Merah Mewah) -->
+              <tr class="bg-rose-950/30 border-l-4 border-l-rose-500 animate-pulse">
+                <td class="py-3.5 px-3.5">
+                  <span class="font-black text-rose-300 block">TRX-202611-004</span>
+                  <span class="text-[11px] text-white font-bold">Latihan Pidato Bahasa Arab</span>
+                </td>
+                <td class="py-3.5 px-3.5">
+                  <span class="font-bold text-white block">Ust. Ilham R.</span>
+                  <span class="text-[10px] text-slate-400">Rayon Saudi Lt. 2 (WA: 0812-3344-xxxx)</span>
+                </td>
+                <td class="py-3.5 px-3.5 text-slate-200">
+                  1x SPK-ACT-02, 2x MIC-WL-01, 2x KBL-01
+                </td>
+                <td class="py-3.5 px-3.5 text-slate-400">Kemarin, 20:00 WIB</td>
+                <td class="py-3.5 px-3.5 text-rose-400 font-black">
+                  Tadi Malam 22:00 WIB
+                  <span class="block text-[10px] text-rose-300 font-black">⚠️ Terlambat 10 Jam!</span>
+                </td>
+                <td class="py-3.5 px-3.5 text-center">
+                  <span class="px-2.5 py-1 rounded-xl bg-rose-600/30 text-rose-300 border border-rose-500/50 font-black text-[10px] uppercase">
+                    Overdue
+                  </span>
+                </td>
+                <td class="py-3.5 px-3.5 text-right">
+                  <button onclick="prosesPengembalian('TRX-202611-004')" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-black text-[11px] shadow-sm transition active:scale-95">
+                    Check-In Sekarang
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Item 2: Normal -->
+              <tr class="hover:bg-white/5 transition">
+                <td class="py-3.5 px-3.5">
+                  <span class="font-black text-amber-300 block">TRX-202611-005</span>
+                  <span class="text-[11px] text-white font-bold">Kultum Subuh &amp; Dzikir Pagi</span>
+                </td>
+                <td class="py-3.5 px-3.5">
+                  <span class="font-bold text-white block">Bagian Ta'mir Masjid</span>
+                  <span class="text-[10px] text-slate-400">Masjid Jami' Lt. 1</span>
+                </td>
+                <td class="py-3.5 px-3.5 text-slate-200">
+                  Paket Muhadhoroh (1 Mixer + 2 Spk + 3 Mic)
+                </td>
+                <td class="py-3.5 px-3.5 text-slate-400">Hari ini, 04:30 WIB</td>
+                <td class="py-3.5 px-3.5 text-emerald-400 font-black">
+                  Hari ini, 09:00 WIB
+                </td>
+                <td class="py-3.5 px-3.5 text-center">
+                  <span class="px-2.5 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-black text-[10px] uppercase">
+                    Aktif
+                  </span>
+                </td>
+                <td class="py-3.5 px-3.5 text-right">
+                  <button onclick="prosesPengembalian('TRX-202611-005')" class="px-3.5 py-1.5 rounded-xl bg-royal-800 hover:bg-royal-700 text-white font-bold text-[11px] border border-white/10 transition active:scale-95">
+                    Proses Kembali
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Item 3: Normal -->
+              <tr class="hover:bg-white/5 transition">
+                <td class="py-3.5 px-3.5">
+                  <span class="font-black text-amber-300 block">TRX-202611-006</span>
+                  <span class="text-[11px] text-white font-bold">Apel Olahraga Sore Santri</span>
+                </td>
+                <td class="py-3.5 px-3.5">
+                  <span class="font-bold text-white block">Bagian Olahraga (OPPM)</span>
+                  <span class="text-[10px] text-slate-400">Lapangan Depan Rayon Al-Azhar</span>
+                </td>
+                <td class="py-3.5 px-3.5 text-slate-200">
+                  1x Portable Fleco, 2x Mic Wireless
+                </td>
+                <td class="py-3.5 px-3.5 text-slate-400">Hari ini, 06:00 WIB</td>
+                <td class="py-3.5 px-3.5 text-emerald-400 font-black">
+                  Hari ini, 17:30 WIB
+                </td>
+                <td class="py-3.5 px-3.5 text-center">
+                  <span class="px-2.5 py-1 rounded-xl bg-sky-500/20 text-sky-300 border border-sky-400/30 font-black text-[10px] uppercase">
+                    Aktif
+                  </span>
+                </td>
+                <td class="py-3.5 px-3.5 text-right">
+                  <button onclick="prosesPengembalian('TRX-202611-006')" class="px-3.5 py-1.5 rounded-xl bg-royal-800 hover:bg-royal-700 text-white font-bold text-[11px] border border-white/10 transition active:scale-95">
+                    Proses Kembali
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 2: MASTER INVENTARIS & GENERATOR QR CODE MEWAH                      -->
+    <!-- ======================================================================= -->
+    <section id="tab-inventaris" class="space-y-6 hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 rounded-3xl glass-luxury gold-border-glow shadow-xl">
+        <div>
+          <h2 class="text-base font-black text-white flex items-center gap-2">
+            <span>Katalog Master Inventaris Audio Gontor 4</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-black">
+              148 Alat
+            </span>
+          </h2>
+          <p class="text-xs text-slate-400">Kartu identitas digital, kode unik serial, lokasi rak presisi, dan cetak stiker QR anti-air</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="showTab('bundling')" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-black text-xs flex items-center gap-2 shadow-lg transition active:scale-95">
+            <i data-lucide="sparkles" class="h-4 w-4"></i>
+            <span>Mode Paket (Bundling)</span>
+          </button>
+
+          <button onclick="bukaModalTambahAlat()" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 font-black text-xs flex items-center gap-2 shadow-lg transition active:scale-95">
+            <i data-lucide="plus-circle" class="h-4 w-4"></i>
+            <span>+ Tambah Perangkat</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Kategori & Search Bar -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-1.5 overflow-x-auto custom-scroll pb-1">
+          <button onclick="filterKategori('semua')" class="kat-btn px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-royal-950 font-black text-xs shrink-0 shadow-sm">Semua (148)</button>
+          <button onclick="filterKategori('speaker')" class="kat-btn px-3.5 py-2 rounded-xl glass-luxury text-slate-300 font-bold text-xs shrink-0 hover:border-amber-400/40">Speaker (32)</button>
+          <button onclick="filterKategori('mic')" class="kat-btn px-3.5 py-2 rounded-xl glass-luxury text-slate-300 font-bold text-xs shrink-0 hover:border-amber-400/40">Mikrofon (46)</button>
+          <button onclick="filterKategori('mixer')" class="kat-btn px-3.5 py-2 rounded-xl glass-luxury text-slate-300 font-bold text-xs shrink-0 hover:border-amber-400/40">Mixer &amp; FX (8)</button>
+          <button onclick="filterKategori('kabel')" class="kat-btn px-3.5 py-2 rounded-xl glass-luxury text-slate-300 font-bold text-xs shrink-0 hover:border-amber-400/40">Kabel &amp; Jack (52)</button>
+          <button onclick="filterKategori('stand')" class="kat-btn px-3.5 py-2 rounded-xl glass-luxury text-slate-300 font-bold text-xs shrink-0 hover:border-amber-400/40">Stand &amp; Genset (10)</button>
+        </div>
+
+        <div class="relative sm:w-80">
+          <i data-lucide="search" class="absolute left-3.5 top-3 h-4 w-4 text-slate-400"></i>
+          <input type="text" id="cariAlatInput" oninput="cariAlat(this.value)" placeholder="Cari kode (SPK-01) / merk / tipe..." class="w-full pl-10 pr-3.5 py-2.5 rounded-2xl glass-luxury text-xs font-bold text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400/50">
+        </div>
+      </div>
+
+      <!-- Grid Kartu Profil Alat Digital Mewah (VIP Black & Gold Passport Style) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="gridAsetContainer">
+        <!-- Render dinamis JavaScript -->
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB BARU: PAKET PANGGUNG AKBAR (BUNDLING STANDAR GONTOR 4)               -->
+    <!-- ======================================================================= -->
+    <section id="tab-bundling" class="space-y-6 hidden">
+      <div class="p-5 rounded-3xl glass-luxury gold-border-glow flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xl">
+        <div>
+          <h2 class="text-base font-black text-white flex items-center gap-2">
+            <i data-lucide="sparkles" class="h-5 w-5 text-amber-400"></i>
+            <span>Mode Paket Standar Acara Pondok (Bundling QR Induk)</span>
+          </h2>
+          <p class="text-xs text-slate-300">Satu kali scan QR Induk langsung meminjam seluruh rangkaian alat untuk panggung akbar</p>
+        </div>
+
+        <span class="px-3 py-1 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-400/40 text-xs font-black uppercase">
+          3 Paket Resmi
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Paket 1: Panggung Gembira (Pentas Seni 648) -->
+        <div class="p-6 rounded-3xl glass-luxury glass-luxury-hover border-purple-500/40 flex flex-col justify-between space-y-4 relative overflow-hidden">
+          <div class="space-y-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-400/30 text-[10px] font-black uppercase">
+              PKT-PG-648
+            </span>
+            <h3 class="text-lg font-black text-white">Paket Panggung Gembira &amp; Drama Contest</h3>
+            <p class="text-xs text-slate-400">Spek konser panggung luar untuk ribuan santri &amp; wali santri</p>
+            
+            <div class="pt-3 border-t border-white/10 space-y-1.5 text-xs text-slate-300">
+              <div class="flex items-center gap-2">✔ <b>4x</b> Speaker Active Yamaha DBR15</div>
+              <div class="flex items-center gap-2">✔ <b>1x</b> Digital Mixer Yamaha 16CH FX</div>
+              <div class="flex items-center gap-2">✔ <b>6x</b> Wireless Mic Shure Beta58</div>
+              <div class="flex items-center gap-2">✔ <b>8x</b> Kabel XLR 10M + Stand Boom</div>
+              <div class="flex items-center gap-2">✔ <b>1x</b> Genset Cadangan 10kVA</div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+            <button onclick="cetakQRBarang('PKT-PG-648', 'Paket Panggung Gembira (Induk)', 'Gudang Utama')" class="flex-1 py-2 rounded-xl bg-royal-800 hover:bg-royal-700 text-white font-bold text-xs border border-white/10 flex items-center justify-center gap-1.5">
+              <i data-lucide="qr-code" class="h-3.5 w-3.5 text-amber-400"></i>
+              <span>Cetak QR Induk</span>
+            </button>
+            <button onclick="pinjamPaketCepat('PKT-PG-648')" class="py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-royal-950 font-black text-xs transition active:scale-95">
+              Pinjam Paket
+            </button>
+          </div>
+        </div>
+
+        <!-- Paket 2: Muhadhoroh Kubro -->
+        <div class="p-6 rounded-3xl glass-luxury glass-luxury-hover border-amber-500/40 flex flex-col justify-between space-y-4 relative overflow-hidden">
+          <div class="space-y-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[10px] font-black uppercase">
+              PKT-MHD-01
+            </span>
+            <h3 class="text-lg font-black text-white">Paket Latihan Pidato / Muhadhoroh</h3>
+            <p class="text-xs text-slate-400">Standar acara latihan pidato mingguan di asrama</p>
+            
+            <div class="pt-3 border-t border-white/10 space-y-1.5 text-xs text-slate-300">
+              <div class="flex items-center gap-2">✔ <b>2x</b> Speaker Active Yamaha 15"</div>
+              <div class="flex items-center gap-2">✔ <b>1x</b> Mini Mixer Soundcraft 8CH</div>
+              <div class="flex items-center gap-2">✔ <b>3x</b> Wireless Mic Shure</div>
+              <div class="flex items-center gap-2">✔ <b>4x</b> Kabel XLR Microphone</div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+            <button onclick="cetakQRBarang('PKT-MHD-01', 'Paket Muhadhoroh (Induk)', 'Rak B-01')" class="flex-1 py-2 rounded-xl bg-royal-800 hover:bg-royal-700 text-white font-bold text-xs border border-white/10 flex items-center justify-center gap-1.5">
+              <i data-lucide="qr-code" class="h-3.5 w-3.5 text-amber-400"></i>
+              <span>Cetak QR Induk</span>
+            </button>
+            <button onclick="pinjamPaketCepat('PKT-MHD-01')" class="py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-royal-950 font-black text-xs transition active:scale-95">
+              Pinjam Paket
+            </button>
+          </div>
+        </div>
+
+        <!-- Paket 3: Sholat Hari Raya / Lapangan -->
+        <div class="p-6 rounded-3xl glass-luxury glass-luxury-hover border-emerald-500/40 flex flex-col justify-between space-y-4 relative overflow-hidden">
+          <div class="space-y-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-black uppercase">
+              PKT-ID-LAP
+            </span>
+            <h3 class="text-lg font-black text-white">Paket Sholat Idul Fitri / Adha Lapangan</h3>
+            <p class="text-xs text-slate-400">Penyebaran suara merata untuk ribuan jamaah sholat</p>
+            
+            <div class="pt-3 border-t border-white/10 space-y-1.5 text-xs text-slate-300">
+              <div class="flex items-center gap-2">✔ <b>4x</b> Speaker Corong Toa / Horn</div>
+              <div class="flex items-center gap-2">✔ <b>2x</b> Speaker Active Lapangan</div>
+              <div class="flex items-center gap-2">✔ <b>2x</b> Mic Podium Khutbah Wireless</div>
+              <div class="flex items-center gap-2">✔ <b>1x</b> Inverter / Battery UPS Backup</div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+            <button onclick="cetakQRBarang('PKT-ID-LAP', 'Paket Sholat Lapangan (Induk)', 'Zona D')" class="flex-1 py-2 rounded-xl bg-royal-800 hover:bg-royal-700 text-white font-bold text-xs border border-white/10 flex items-center justify-center gap-1.5">
+              <i data-lucide="qr-code" class="h-3.5 w-3.5 text-amber-400"></i>
+              <span>Cetak QR Induk</span>
+            </button>
+            <button onclick="pinjamPaketCepat('PKT-ID-LAP')" class="py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-royal-950 font-black text-xs transition active:scale-95">
+              Pinjam Paket
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 3: SIRKULASI PEMINJAMAN (CHECK-OUT)                                 -->
+    <!-- ======================================================================= -->
+    <section id="tab-checkout" class="space-y-6 hidden">
+      <div class="p-5 rounded-3xl glass-luxury gold-border-glow flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xl">
+        <div>
+          <h2 class="text-base font-black text-white flex items-center gap-2">
+            <i data-lucide="qr-code" class="h-5 w-5 text-amber-400"></i>
+            <span>Check-Out Cepat (Scan Kamera HP Pintu Keluar)</span>
+          </h2>
+          <p class="text-xs text-slate-300">Arahkan kamera HP ke stiker alat untuk memasukkannya ke keranjang peminjaman</p>
+        </div>
+
+        <button onclick="bukaModalScanner('checkout')" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-royal-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition active:scale-95">
+          <i data-lucide="camera" class="h-4 w-4"></i>
+          <span>Buka Scanner Kamera HP</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Kolom Kiri: Input Manual & Quick Scan Simulator (7 Kolom) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="p-5 rounded-3xl glass-luxury space-y-3.5">
+            <h3 class="font-black text-sm text-white flex items-center gap-2">
+              <i data-lucide="scan-line" class="h-4 w-4 text-amber-400"></i>
+              <span>Simulasi Scan Barcode / Input Manual Cepat</span>
+            </h3>
+            
+            <div class="flex gap-2">
+              <input type="text" id="inputScanCheckout" placeholder="Ketik kode alat (cth: SPK-ACT-01 / MIC-WL-01)" class="flex-1 px-3.5 py-2.5 rounded-2xl glass-luxury font-black text-xs uppercase placeholder:normal-case text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+              <button onclick="tambahKeKeranjangManual()" class="py-2.5 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 text-royal-950 font-black text-xs transition active:scale-95">
+                + Tambah
+              </button>
+            </div>
+
+            <div class="pt-2">
+              <span class="text-[11px] font-bold text-slate-400 block mb-1.5">Klik uji cepat fitur penolakan otomatis:</span>
+              <div class="flex flex-wrap gap-1.5">
+                <button onclick="simulasiScan('SPK-ACT-01')" class="px-2.5 py-1 rounded-xl bg-royal-800 hover:bg-royal-700 text-amber-300 text-[10px] font-black border border-white/10">
+                  + SPK-ACT-01 (Ready)
+                </button>
+                <button onclick="simulasiScan('MIC-WL-01')" class="px-2.5 py-1 rounded-xl bg-royal-800 hover:bg-royal-700 text-amber-300 text-[10px] font-black border border-white/10">
+                  + MIC-WL-01 (Ready)
+                </button>
+                <button onclick="simulasiScan('MIX-16CH-01')" class="px-2.5 py-1 rounded-xl bg-royal-800 hover:bg-royal-700 text-amber-300 text-[10px] font-black border border-white/10">
+                  + MIX-16CH (Ready)
+                </button>
+                <!-- UJI VALIDASI: BARANG RUSAK DITOLAK -->
+                <button onclick="simulasiScan('MIC-WL-03')" class="px-2.5 py-1 rounded-xl bg-rose-950 text-rose-300 text-[10px] font-black border border-rose-500/50 hover:bg-rose-900" title="Coba scan alat rusak untuk melihat sistem penolakan otomatis">
+                  ⚠️ MIC-WL-03 (Rusak - Uji Tolak)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keranjang Alat Yang Dipinjam -->
+          <div class="p-5 rounded-3xl glass-luxury space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-black text-sm text-white flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="h-4 w-4 text-emerald-400"></i>
+                <span>Daftar Perangkat di Keranjang Pinjam</span>
+              </h3>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-black" id="badgeKeranjang">
+                0 Alat
+              </span>
+            </div>
+
+            <!-- List Item Keranjang -->
+            <div class="space-y-2 max-h-72 overflow-y-auto custom-scroll pr-1" id="listKeranjangBody">
+              <div class="p-6 text-center text-slate-400 font-bold text-xs bg-royal-950/60 rounded-2xl border border-dashed border-white/10" id="emptyKeranjang">
+                <i data-lucide="scan-barcode" class="h-8 w-8 text-amber-400/50 mx-auto mb-1"></i>
+                Belum ada alat di-scan. Arahkan kamera HP ke QR Code atau gunakan tombol scan cepat di atas.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Form Identitas Acara & Peminjam (5 Kolom) -->
+        <div class="lg:col-span-5">
+          <div class="p-6 rounded-3xl glass-luxury gold-border-glow space-y-4 sticky top-28">
+            <div class="border-b border-white/10 pb-3">
+              <h3 class="font-black text-sm text-white">Surat Jalan &amp; Identitas Peminjam</h3>
+              <p class="text-[11px] text-slate-400 font-medium">Wajib diisi lengkap demi akuntabilitas aset</p>
+            </div>
+
+            <form onsubmit="simpanTransaksiCheckout(event)" class="space-y-3 text-xs">
+              <div>
+                <label class="block font-bold text-slate-300 mb-1">Nama Acara / Kegiatan:</label>
+                <input type="text" id="formNamaAcara" placeholder="Contoh: Muhadhoroh Akbar Santri Baru" required class="w-full px-3.5 py-2.5 rounded-2xl glass-luxury font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-300 mb-1">Nama Penanggung Jawab (PJ):</label>
+                <input type="text" id="formNamaPJ" placeholder="Contoh: Ust. Ahmad Fauzi / Panitia Pentas" required class="w-full px-3.5 py-2.5 rounded-2xl glass-luxury font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block font-bold text-slate-300 mb-1">Kamar / Bagian:</label>
+                  <input type="text" id="formKamarBagian" placeholder="Rayon Saudi / Ta'mir" required class="w-full px-3 py-2 rounded-xl glass-luxury font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+                </div>
+
+                <div>
+                  <label class="block font-bold text-slate-300 mb-1">No. WhatsApp PJ:</label>
+                  <input type="tel" id="formNoWA" placeholder="0812-xxxx-xxxx" required class="w-full px-3 py-2 rounded-xl glass-luxury font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block font-bold text-slate-300 mb-1">Waktu Pinjam:</label>
+                  <input type="text" id="formWaktuPinjam" value="Hari ini, 08:30 WIB" class="w-full px-3 py-2 rounded-xl bg-royal-950/60 border border-white/5 font-bold text-slate-400" readonly>
+                </div>
+
+                <div>
+                  <label class="block font-bold text-slate-300 mb-1">Estimasi Kembali:</label>
+                  <input type="text" id="formEstimasiKembali" placeholder="Hari ini, 22:00 WIB" required class="w-full px-3 py-2 rounded-xl glass-luxury font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+                </div>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-300 mb-1">Petugas Piket yang Menyerahkan:</label>
+                <input type="text" id="formPetugasCheckout" value="Ust. Rizky Pratama (Admin Gudang)" class="w-full px-3 py-2 rounded-xl bg-royal-950/80 border border-amber-400/20 font-black text-amber-300" readonly>
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 font-black text-xs flex items-center justify-center gap-2 shadow-xl transition active:scale-95">
+                  <i data-lucide="check-check" class="h-4 w-4"></i>
+                  <span>Sahkan Transaksi &amp; Cetak Bukti Pinjam</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 4: MODUL PENGEMBALIAN & INSPEKSI KONDISI (CHECK-IN)                 -->
+    <!-- ======================================================================= -->
+    <section id="tab-checkin" class="space-y-6 hidden">
+      <div class="p-5 rounded-3xl glass-luxury gold-border-glow flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xl">
+        <div>
+          <h2 class="text-base font-black text-white flex items-center gap-2">
+            <i data-lucide="arrow-down-left" class="h-5 w-5 text-amber-400"></i>
+            <span>Modul Check-In &amp; Inspeksi Fisik Suara (Wajib Verifikasi)</span>
+          </h2>
+          <p class="text-xs text-slate-300">Scan ulang tiap barang, tes fungsi audio, dan wajib foto jika terjadi kerusakan fisik</p>
+        </div>
+
+        <button onclick="bukaModalScanner('checkin')" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-royal-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition active:scale-95">
+          <i data-lucide="qr-code" class="h-4 w-4"></i>
+          <span>Scan QR Pengembalian</span>
+        </button>
+      </div>
+
+      <!-- Pilih Transaksi yang Mau Di-Checkin -->
+      <div class="p-6 rounded-3xl glass-luxury space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+          <div>
+            <h3 class="font-black text-sm text-white">1. Pilih Transaksi Acara yang Dikembalikan</h3>
+            <p class="text-[11px] text-slate-400">Pilih dari daftar transaksi aktif atau scan salah satu QR alat</p>
+          </div>
+          
+          <select id="pilihTrxCheckin" onchange="muatItemCheckin(this.value)" class="px-3.5 py-2.5 rounded-2xl glass-luxury font-bold text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+            <option value="TRX-202611-004">TRX-202611-004 — Latihan Pidato (Ust. Ilham R.) - ⚠️ Overdue</option>
+            <option value="TRX-202611-005">TRX-202611-005 — Kultum Subuh (Ta'mir Masjid)</option>
+            <option value="TRX-202611-006">TRX-202611-006 — Apel Olahraga Santri (Bagian Olahraga)</option>
+          </select>
+        </div>
+
+        <!-- Checklist Verifikasi Kelengkapan & Inspeksi Kondisi -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="font-black text-xs text-amber-300 uppercase tracking-wide">
+              2. Checklist Fisik &amp; Uji Fungsi Suara Tiap Unit
+            </h4>
+            <span class="text-[11px] font-bold text-slate-400">
+              *Jika memilih Rusak, kolom rincian &amp; upload foto wajib dilampirkan
+            </span>
+          </div>
+
+          <div class="space-y-3" id="containerCheckinItems">
+            <!-- Items di-render dinamis oleh JavaScript -->
+          </div>
+        </div>
+
+        <!-- Tombol Selesaikan Check-In -->
+        <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+          <div class="text-xs text-slate-400 font-medium">
+            Petugas Penerima: <b class="text-amber-300">Ust. Rizky Pratama</b>
+          </div>
+
+          <button onclick="selesaikanCheckin()" class="py-3 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-royal-950 font-black text-xs flex items-center gap-2 shadow-lg transition active:scale-95">
+            <i data-lucide="check-circle" class="h-4 w-4"></i>
+            <span>Selesaikan &amp; Tutup Transaksi</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 5: AUDIT & RIWAYAT KESEHATAN ALAT (MAINTENANCE LOG)                 -->
+    <!-- ======================================================================= -->
+    <section id="tab-audit" class="space-y-6 hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 rounded-3xl glass-luxury gold-border-glow shadow-xl">
+        <div>
+          <h2 class="text-base font-black text-white flex items-center gap-2">
+            <i data-lucide="file-check-2" class="h-5 w-5 text-amber-400"></i>
+            <span>Audit Jejak Rekam (Traceability) &amp; Log Perbaikan Bengkel</span>
+          </h2>
+          <p class="text-xs text-slate-300">Lacak siapa peminjam terakhir saat alat rusak, riwayat masuk bengkel, dan analisis biaya</p>
+        </div>
+
+        <button onclick="cetakLaporanAudit()" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 font-black text-xs flex items-center gap-2 shadow-lg transition active:scale-95">
+          <i data-lucide="printer" class="h-4 w-4"></i>
+          <span>Unduh Laporan Audit (F4 / Excel)</span>
+        </button>
+      </div>
+
+      <!-- Jejak Rekam Cepat per Unit -->
+      <div class="p-6 rounded-3xl glass-luxury space-y-4">
+        <h3 class="font-black text-sm text-white flex items-center gap-2">
+          <i data-lucide="history" class="h-4 w-4 text-amber-400"></i>
+          <span>Pilih Perangkat untuk Melihat Jejak Rekam (Traceability Log)</span>
+        </h3>
+
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <select id="pilihAlatAudit" onchange="tampilkanAuditAlat(this.value)" class="flex-1 px-3.5 py-2.5 rounded-2xl glass-luxury font-bold text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+            <option value="SPK-ACT-01">SPK-ACT-01 — Yamaha DBR15 15" Active (Kondisi: Baik)</option>
+            <option value="MIC-WL-03">MIC-WL-03 — Shure SLX24/Beta58 Wireless (Kondisi: Rusak Spul - Perlu Servis)</option>
+            <option value="MIX-16CH-01">MIX-16CH-01 — Yamaha MG16XU 16-Channel Mixer (Kondisi: Baik)</option>
+            <option value="KBL-XLR-10M-04">KBL-XLR-10M-04 — Canare L-4E6S XLR 10 Meter (Kondisi: Jack Patah)</option>
+          </select>
+
+          <button onclick="bukaModalScanner('audit')" class="py-2.5 px-4 rounded-xl bg-royal-800 hover:bg-royal-700 text-amber-300 font-bold text-xs flex items-center justify-center gap-2 border border-white/10">
+            <i data-lucide="qr-code" class="h-4 w-4"></i>
+            <span>Scan QR Fisik</span>
+          </button>
+        </div>
+
+        <!-- Tampilan Kronologi Jejak Rekam -->
+        <div id="containerKronologiAudit" class="p-4 rounded-2xl bg-royal-950/70 border border-white/5 text-xs space-y-3">
+          <!-- Render dinamis JavaScript -->
+        </div>
+      </div>
+
+      <!-- Riwayat Masuk Bengkel & Log Biaya Servis -->
+      <div class="p-6 rounded-3xl glass-luxury space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-black text-sm text-white">Buku Log Pemeliharaan Bengkel &amp; Biaya</h3>
+            <p class="text-[11px] text-slate-400">Membantu pimpinan mengevaluasi kelayakan ganti unit baru vs perbaikan</p>
+          </div>
+          <span class="px-3 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/30 font-black text-xs">
+            Total Biaya Tahun Ini: Rp1.450.000
+          </span>
+        </div>
+
+        <div class="overflow-x-auto custom-scroll">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-royal-950/80 text-slate-400 border-b border-white/10 text-[11px]">
+                <th class="py-2.5 px-3 font-black">Tgl Servis</th>
+                <th class="py-2.5 px-3 font-black">Kode &amp; Nama Alat</th>
+                <th class="py-2.5 px-3 font-black">Keluhan / Kerusakan</th>
+                <th class="py-2.5 px-3 font-black">Komponen Diganti</th>
+                <th class="py-2.5 px-3 font-black">Bengkel / Teknisi</th>
+                <th class="py-2.5 px-3 font-black text-right">Biaya (Rp)</th>
+                <th class="py-2.5 px-3 font-black text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 font-medium text-slate-200">
+              <tr>
+                <td class="py-3 px-3 text-slate-400">12 Nov 2026</td>
+                <td class="py-3 px-3 font-black text-amber-300">SPK-PAS-04 (Huasper)</td>
+                <td class="py-3 px-3">Driver tweeter putus saat acara</td>
+                <td class="py-3 px-3 text-slate-300">Spul Tweeter Titanium 44mm</td>
+                <td class="py-3 px-3 text-slate-300">Pak Yanto Audio Rogojampi</td>
+                <td class="py-3 px-3 text-right font-black text-white">Rp250.000</td>
+                <td class="py-3 px-3 text-center">
+                  <span class="px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-bold text-[10px]">Normal Kembali</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3 text-slate-400">04 Okt 2026</td>
+                <td class="py-3 px-3 font-black text-amber-300">MIX-12CH-02 (Soundcraft)</td>
+                <td class="py-3 px-3">Fader channel 1-4 kresek-kresek</td>
+                <td class="py-3 px-3 text-slate-300">Potensiometer geser 100mm (4 unit)</td>
+                <td class="py-3 px-3 text-slate-300">Service Center Banyuwangi</td>
+                <td class="py-3 px-3 text-right font-black text-white">Rp600.000</td>
+                <td class="py-3 px-3 text-center">
+                  <span class="px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-bold text-[10px]">Normal Kembali</span>
+                </td>
+              </tr>
+              <tr class="bg-amber-950/20">
+                <td class="py-3 px-3 text-slate-400">22 Nov 2026</td>
+                <td class="py-3 px-3 font-black text-rose-400">MIC-WL-03 (Shure)</td>
+                <td class="py-3 px-3 text-rose-300 font-bold">Spul mati terjatuh di panggung</td>
+                <td class="py-3 px-3 text-slate-400">Estimasi: Cartridge Beta58</td>
+                <td class="py-3 px-3 text-slate-300">Dalam antrean kirim teknisi</td>
+                <td class="py-3 px-3 text-right font-black text-amber-300">Rp600.000 (Est)</td>
+                <td class="py-3 px-3 text-center">
+                  <span class="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/40 font-bold text-[10px]">Sedang Servis</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: SCANNER KAMERA HP DENGAN LASER ANIMATION                          -->
+  <!-- ========================================================================= -->
+  <div id="modalScanner" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-luxury rounded-3xl max-w-sm w-full gold-border-glow p-6 text-white space-y-4 shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="h-9 w-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-400/30">
+            <i data-lucide="scan" class="h-5 w-5"></i>
+          </div>
+          <div>
+            <h3 class="font-black text-xs text-white" id="scannerModalTitle">Scan Barcode QR Alat</h3>
+            <p class="text-[10px] text-slate-400">Arahkan kamera ke stiker pada bodi alat</p>
+          </div>
+        </div>
+        <button onclick="tutupModalScanner()" class="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300">
+          <i data-lucide="x" class="h-4 w-4"></i>
+        </button>
+      </div>
+
+      <!-- Area Viewfinder Kamera (Simulasi Video Feed + Laser) -->
+      <div class="relative h-64 rounded-2xl bg-black border-2 border-amber-500/50 overflow-hidden flex flex-col items-center justify-center">
+        <!-- Bingkai Sudut Scanner -->
+        <div class="absolute inset-6 border-2 border-dashed border-amber-400/60 rounded-xl pointer-events-none"></div>
+        <!-- Laser Merah Bergerak -->
+        <div class="scanner-laser absolute left-6 right-6 h-0.5 bg-rose-500 shadow-[0_0_12px_#f43f5e]"></div>
+
+        <div class="text-center p-4 z-10 pointer-events-none">
+          <i data-lucide="camera" class="h-10 w-10 text-amber-400 mx-auto mb-2 opacity-80 animate-pulse"></i>
+          <p class="text-[11px] font-bold text-slate-200">Kamera HP Aktif</p>
+          <p class="text-[10px] text-slate-400">Mendeteksi QR Code secara otomatis...</p>
+        </div>
+      </div>
+
+      <!-- Tombol Simulasi Hasil Scan Cepat untuk Demo -->
+      <div class="space-y-2 pt-1">
+        <span class="text-[10px] font-bold text-slate-400 block text-center">Tekan tombol simulasi untuk uji respon sistem:</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="eksekusiHasilScan('SPK-ACT-01')" class="py-2.5 px-2.5 rounded-xl bg-royal-800 hover:bg-royal-700 text-amber-300 font-black text-[11px] border border-amber-400/30 transition">
+            Scan: SPK-ACT-01 (OK)
+          </button>
+          <button onclick="eksekusiHasilScan('MIC-WL-01')" class="py-2.5 px-2.5 rounded-xl bg-royal-800 hover:bg-royal-700 text-amber-300 font-black text-[11px] border border-amber-400/30 transition">
+            Scan: MIC-WL-01 (OK)
+          </button>
+          <button onclick="eksekusiHasilScan('MIX-16CH-01')" class="py-2.5 px-2.5 rounded-xl bg-royal-800 hover:bg-royal-700 text-amber-300 font-black text-[11px] border border-amber-400/30 transition">
+            Scan: MIX-16CH (OK)
+          </button>
+          <button onclick="eksekusiHasilScan('MIC-WL-03')" class="py-2.5 px-2.5 rounded-xl bg-rose-950 text-rose-300 font-black text-[11px] border border-rose-500/50 hover:bg-rose-900 transition">
+            Scan: MIC-WL-03 (Rusak)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CETAK LABEL STIKER QR CODE MEWAH (BERBINGKAI EMAS)               -->
+  <!-- ========================================================================= -->
+  <div id="modalCetakQR" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-luxury rounded-3xl max-w-sm w-full p-6 space-y-4 gold-border-glow shadow-2xl relative text-white">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h3 class="font-black text-sm text-white">Stiker QR Code Resmi Gontor 4</h3>
+        <button onclick="tutupModalQR()" class="p-1 rounded-lg text-slate-400 hover:bg-white/10">
+          <i data-lucide="x" class="h-4 w-4"></i>
+        </button>
+      </div>
+
+      <!-- Preview Stiker Siap Cetak (Waterproof Label Style) -->
+      <div class="p-5 rounded-2xl bg-gradient-to-br from-royal-950 via-royal-900 to-royal-950 border-2 border-amber-400/60 flex flex-col items-center text-center space-y-3 shadow-2xl" id="areaCetakStiker">
+        <div class="border-b border-amber-400/30 pb-1.5 w-full">
+          <p class="text-[9px] font-black uppercase tracking-widest text-amber-300">Pondok Modern Darussalam Gontor 4</p>
+          <p class="font-cinzel text-xs font-black text-white tracking-wider">BAGIAN SOUND SYSTEM</p>
+        </div>
+
+        <div id="qrcodeDisplay" class="p-2.5 bg-white rounded-2xl shadow-xl border-2 border-amber-400"></div>
+
+        <div>
+          <span class="text-sm font-black gold-gradient-text tracking-widest block" id="labelKodeBarang">SPK-ACT-01</span>
+          <span class="text-[10px] text-slate-300 font-bold block mt-0.5" id="labelNamaBarang">Yamaha DBR15 15" Active</span>
+          <span class="text-[9px] text-amber-950 font-black bg-gradient-to-r from-amber-300 to-amber-400 px-2.5 py-0.5 rounded-full inline-block mt-1.5" id="labelLokasiRak">Rak Speaker A-01</span>
+        </div>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button onclick="tutupModalQR()" class="flex-1 py-2.5 rounded-xl bg-royal-800 hover:bg-royal-700 text-slate-300 font-bold text-xs border border-white/10">
+          Tutup
+        </button>
+        <button onclick="window.print()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-lg">
+          <i data-lucide="printer" class="h-4 w-4"></i>
+          <span>Cetak Stiker</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. JAVASCRIPT & AUDIO ENGINE                                              -->
+  <!-- ========================================================================= -->
+  <script>
+    // Database Master Aset Sound System
+    let DATA_ASET = [
+      {
+        id: '1',
+        kode: 'SPK-ACT-01',
+        nama: 'Yamaha DBR15 15" 1000W Active Speaker',
+        kategori: 'speaker',
+        merk: 'Yamaha Japan',
+        tahun: '2023',
+        lokasi: 'Zona Speaker Rak A-01',
+        kondisi: 'baik',
+        status: 'tersedia',
+        foto: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400&auto=format&fit=crop&q=80',
+        peminjamTerakhir: 'Bagian Ta\'mir (Kultum Subuh)',
+      },
+      {
+        id: '2',
+        kode: 'SPK-ACT-02',
+        nama: 'Yamaha DBR15 15" Active Speaker (Pair B)',
+        kategori: 'speaker',
+        merk: 'Yamaha Japan',
+        tahun: '2023',
+        lokasi: 'Zona Speaker Rak A-02',
+        kondisi: 'baik',
+        status: 'dipinjam',
+        foto: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400&auto=format&fit=crop&q=80',
+        peminjamTerakhir: 'Ust. Ilham (Latihan Pidato)',
+      },
+      {
+        id: '3',
+        kode: 'MIC-WL-01',
+        nama: 'Shure SLX24/Beta58 Wireless System (Set A)',
+        kategori: 'mic',
+        merk: 'Shure USA',
+        tahun: '2024',
+        lokasi: 'Koper Mic Rak B-01',
+        kondisi: 'baik',
+        status: 'tersedia',
+        foto: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=400&auto=format&fit=crop&q=80',
+        peminjamTerakhir: 'Panitia Muhadhoroh Akbar',
+      },
+      {
+        id: '4',
+        kode: 'MIC-WL-03',
+        nama: 'Shure SLX24/Beta58 Wireless System (Set C)',
+        kategori: 'mic',
+        merk: 'Shure USA',
+        tahun: '2022',
+        lokasi: 'Rak Servis C-03',
+        kondisi: 'rusak_berat',
+        status: 'servis',
+        foto: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=400&auto=format&fit=crop&q=80',
+        peminjamTerakhir: 'Panitia Drama Contest (Spul Mati Terjatuh)',
+      },
+      {
+        id: '5',
+        kode: 'MIX-16CH-01',
+        nama: 'Yamaha MG16XU 16-Channel Audio Console FX',
+        kategori: 'mixer',
+        merk: 'Yamaha Japan',
+        tahun: '2023',
+        lokasi: 'Meja Operator Rak B-04',
+        kondisi: 'baik',
+        status: 'tersedia',
+        foto: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&auto=format&fit=crop&q=80',
+        peminjamTerakhir: 'Ta\'mir Masjid',
+      },
+      {
+        id: '6',
+        kode: 'KBL-XLR-10M-01',
+        nama: 'Canare L-4E6S Star-Quad XLR 10 Meter',
+        kategori: 'kabel',
+        merk: 'Canare Japan',
+        tahun: '2024',
+        lokasi: 'Gantungan Kabel C-01',
+        kondisi: 'baik',
+        status: 'tersedia',
+        foto: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&auto=format&fit=crop&q=80',
+        peminjamTerakhir: 'Latihan Paduan Suara',
+      },
+      {
+        id: '7',
+        kode: 'KBL-XLR-10M-04',
+        nama: 'Canare L-4E6S XLR 10M (Jack Neutrik Patah)',
+        kategori: 'kabel',
+        merk: 'Canare Japan',
+        tahun: '2023',
+        lokasi: 'Kotak Solderan C-05',
+        kondisi: 'rusak_ringan',
+        status: 'servis',
+        foto: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&auto=format&fit=crop&q=80',
+        peminjamTerakhir: 'OPPM Panggung Gembira',
+      },
+      {
+        id: '8',
+        kode: 'STD-MIC-BOOM-01',
+        nama: 'Hercules MS533B Hideaway Pro Boom Stand',
+        kategori: 'stand',
+        merk: 'Hercules',
+        tahun: '2024',
+        lokasi: 'Sudut Stand D-01',
+        kondisi: 'baik',
+        status: 'tersedia',
+        foto: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&auto=format&fit=crop&q=80',
+        peminjamTerakhir: 'Khutbah Jumat Masjid',
+      }
+    ];
+
+    let currentRole = 'admin';
+    let keranjangCheckout = [];
+    let scannerContext = 'checkout';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderGridAset(DATA_ASET);
+      muatItemCheckin('TRX-202611-004');
+      initWaveform();
+    });
+
+    // -------------------------------------------------------------------------
+    // WAVEFORM AUDIO SPECTRUM ANIMATION
+    // -------------------------------------------------------------------------
+    function initWaveform() {
+      const canvas = document.getElementById('waveformCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let t = 0;
+
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const bars = 18;
+        const width = 3;
+        const gap = 2;
+
+        for (let i = 0; i < bars; i++) {
+          const height = Math.abs(Math.sin(t + i * 0.4)) * 18 + 4;
+          const x = i * (width + gap) + 4;
+          const y = (canvas.height - height) / 2;
+
+          // Gradient emas audio
+          const grad = ctx.createLinearGradient(0, y, 0, y + height);
+          grad.addColorStop(0, '#fde68a');
+          grad.addColorStop(1, '#d97706');
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.roundRect(x, y, width, height, 1.5);
+          ctx.fill();
+        }
+
+        t += 0.08;
+        requestAnimationFrame(render);
+      }
+      render();
+    }
+
+    // -------------------------------------------------------------------------
+    // ROLE SWITCHER
+    // -------------------------------------------------------------------------
+    function switchRole(role) {
+      currentRole = role;
+      playAcousticChime('role');
+      
+      document.querySelectorAll('.role-btn').forEach(btn => {
+        btn.className = "role-btn px-3 py-1.5 rounded-xl font-bold text-[11px] transition flex items-center gap-1.5 text-slate-300 hover:text-amber-200 hover:bg-white/5";
+      });
+
+      const activeBtn = document.getElementById(`roleBtn-${role}`);
+      if (activeBtn) {
+        activeBtn.className = "role-btn px-3 py-1.5 rounded-xl font-black text-[11px] transition flex items-center gap-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 shadow-md";
+      }
+
+      const banner = document.getElementById('roleBanner');
+      const title = document.getElementById('roleTitleText');
+      const desc = document.getElementById('roleDescText');
+
+      if (role === 'admin') {
+        title.innerText = "Hak Akses: Petugas Piket / Admin Gudang Sound System";
+        desc.innerText = "Wewenang Penuh: Check-out QR kamera HP, verifikasi kelengkapan check-in, pencatatan kerusakan berfoto, dan input perangkat baru.";
+        showToast("Role aktif: Petugas Gudang (Full Access)", "sukses");
+      } else if (role === 'pimpinan') {
+        title.innerText = "Hak Akses: Ustadz Pembimbing / Pimpinan Bagian";
+        desc.innerText = "Akses Eksekutif: Audit jejak rekam aset rusak, kronologi peminjam, buku log servis bengkel, dan unduh laporan resmi.";
+        showToast("Role aktif: Pimpinan (Dashboard Audit)", "info");
+      } else {
+        title.innerText = "Hak Akses: Peminjam (Panitia Acara / Santri)";
+        desc.innerText = "Akses Santri: Melihat ketersediaan alat yang sedang ready di gudang dan mengajukan jadwal booking sound acara.";
+        showToast("Role aktif: Peminjam Santri", "info");
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // TAB SWITCHER
+    // -------------------------------------------------------------------------
+    function showTab(tabId) {
+      playAcousticChime('click');
+      document.querySelectorAll('section[id^="tab-"]').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.className = "nav-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-white/5 transition shrink-0";
+      });
+
+      const activeNav = document.getElementById(`nav-${tabId}`);
+      if (activeNav) {
+        activeNav.className = "nav-tab px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-royal-950 shadow-md transition shrink-0";
+      }
+
+      lucide.createIcons();
+    }
+
+    // -------------------------------------------------------------------------
+    // RENDER GRID ASET (VIP PASS CARD DESIGN)
+    // -------------------------------------------------------------------------
+    function renderGridAset(items) {
+      const container = document.getElementById('gridAsetContainer');
+      container.innerHTML = '';
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full p-8 text-center glass-luxury rounded-3xl text-slate-400 font-bold text-xs">
+            Tidak ada alat yang sesuai dengan kriteria pencarian.
+          </div>
+        `;
+        return;
+      }
+
+      items.forEach(alat => {
+        const badgeKondisi = alat.kondisi === 'baik'
+          ? '<span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-[9px] font-black uppercase">✔ Baik</span>'
+          : alat.kondisi === 'rusak_ringan'
+          ? '<span class="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[9px] font-black uppercase">⚠️ Rusak Ringan</span>'
+          : '<span class="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 border border-rose-400/40 text-[9px] font-black uppercase">❌ Rusak Berat</span>';
+
+        const badgeStatus = alat.status === 'tersedia'
+          ? '<span class="px-2 py-0.5 rounded-md bg-emerald-500 text-royal-950 text-[9px] font-black uppercase">Ready</span>'
+          : alat.status === 'dipinjam'
+          ? '<span class="px-2 py-0.5 rounded-md bg-sky-500 text-royal-950 text-[9px] font-black uppercase">Dipinjam</span>'
+          : '<span class="px-2 py-0.5 rounded-md bg-rose-600 text-white text-[9px] font-black uppercase">Servis</span>';
+
+        const card = document.createElement('div');
+        card.className = "p-4 rounded-3xl glass-luxury glass-luxury-hover transition duration-300 flex flex-col justify-between space-y-3 relative group";
+        card.innerHTML = `
+          <div>
+            <div class="relative h-36 w-full rounded-2xl overflow-hidden bg-black mb-3 border border-white/10">
+              <img src="${alat.foto}" alt="${alat.nama}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-royal-950 via-transparent to-transparent opacity-80"></div>
+              <div class="absolute top-2.5 left-2.5 flex gap-1">
+                ${badgeStatus}
+              </div>
+              <div class="absolute top-2.5 right-2.5">
+                ${badgeKondisi}
+              </div>
+              <div class="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-[10px]">
+                <span class="font-black text-amber-300 tracking-wider">${alat.kode}</span>
+                <span class="text-slate-400">${alat.merk}</span>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <h4 class="font-black text-xs text-white leading-snug truncate" title="${alat.nama}">${alat.nama}</h4>
+              <p class="text-[10px] text-slate-400 font-medium">Pengadaan Tahun ${alat.tahun}</p>
+            </div>
+
+            <div class="mt-2.5 p-2 rounded-xl bg-royal-950/80 border border-white/5 text-[10px] text-slate-300 space-y-0.5">
+              <div class="flex items-center gap-1.5 truncate">
+                <i data-lucide="map-pin" class="h-3 w-3 text-amber-400 shrink-0"></i>
+                <span class="truncate"><b>Rak:</b> ${alat.lokasi}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2.5 border-t border-white/10 flex items-center justify-between gap-1.5">
+            <button onclick="cetakQRBarang('${alat.kode}', '${alat.nama}', '${alat.lokasi}')" class="flex-1 py-2 px-2.5 rounded-xl bg-royal-800 hover:bg-royal-700 text-amber-300 text-[11px] font-black flex items-center justify-center gap-1.5 border border-white/10 transition">
+              <i data-lucide="qr-code" class="h-3.5 w-3.5 text-amber-400"></i>
+              <span>Cetak QR</span>
+            </button>
+            <button onclick="showTab('audit'); tampilkanAuditAlat('${alat.kode}')" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-[11px] border border-white/5" title="Lihat kronologi pemakaian & audit">
+              <i data-lucide="history" class="h-4 w-4"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function filterKategori(kat) {
+      playAcousticChime('click');
+      document.querySelectorAll('.kat-btn').forEach(btn => {
+        btn.className = "kat-btn px-3.5 py-2 rounded-xl glass-luxury text-slate-300 font-bold text-xs shrink-0 hover:border-amber-400/40";
+      });
+      event.target.className = "kat-btn px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-royal-950 font-black text-xs shrink-0 shadow-sm";
+
+      if (kat === 'semua') {
+        renderGridAset(DATA_ASET);
+      } else {
+        const hasil = DATA_ASET.filter(x => x.kategori === kat);
+        renderGridAset(hasil);
+      }
+    }
+
+    function cariAlat(q) {
+      const query = q.toLowerCase().trim();
+      const hasil = DATA_ASET.filter(x => 
+        x.kode.toLowerCase().includes(query) ||
+        x.nama.toLowerCase().includes(query) ||
+        x.merk.toLowerCase().includes(query) ||
+        x.lokasi.toLowerCase().includes(query)
+      );
+      renderGridAset(hasil);
+    }
+
+    // -------------------------------------------------------------------------
+    // CHECK-OUT & SCANNER LOGIC DENGAN VALIDASI OTOMATIS
+    // -------------------------------------------------------------------------
+    function simulasiScan(kode) {
+      tambahKeKeranjang(kode);
+    }
+
+    function tambahKeKeranjangManual() {
+      const inp = document.getElementById('inputScanCheckout');
+      const kode = inp.value.trim().toUpperCase();
+      if (!kode) return showToast("Ketik kode unik perangkat terlebih dahulu!", "peringatan");
+      tambahKeKeranjang(kode);
+      inp.value = '';
+    }
+
+    function tambahKeKeranjang(kode) {
+      const alat = DATA_ASET.find(x => x.kode.toUpperCase() === kode.toUpperCase());
+
+      if (!alat) {
+        playAcousticChime('reject');
+        return showToast(`❌ Kode "${kode}" tidak ditemukan di database gudang!`, "gagal");
+      }
+
+      // VALIDASI TOLAK RUSAK BERAT
+      if (alat.kondisi === 'rusak_berat') {
+        playAcousticChime('reject');
+        return showToast(`❌ PENOLAKAN: ${alat.kode} berstatus RUSAK BERAT / sedang diservis. Tidak boleh dibawa!`, "gagal");
+      }
+
+      // VALIDASI TOLAK SEDANG DIPINJAM
+      if (alat.status === 'dipinjam') {
+        playAcousticChime('reject');
+        return showToast(`⚠️ PERINGATAN: ${alat.kode} saat ini SEDANG DIPINJAM di acara lain!`, "peringatan");
+      }
+
+      if (keranjangCheckout.some(x => x.kode === alat.kode)) {
+        return showToast(`ℹ️ ${alat.kode} sudah masuk di keranjang pinjam`, "info");
+      }
+
+      keranjangCheckout.push(alat);
+      playAcousticChime('scan');
+      showToast(`✔ Berhasil: ${alat.kode} masuk ke keranjang pinjam!`, "sukses");
+      renderKeranjang();
+    }
+
+    function renderKeranjang() {
+      const list = document.getElementById('listKeranjangBody');
+      const badge = document.getElementById('badgeKeranjang');
+      badge.innerText = `${keranjangCheckout.length} Alat`;
+
+      if (keranjangCheckout.length === 0) {
+        list.innerHTML = `
+          <div class="p-6 text-center text-slate-400 font-bold text-xs bg-royal-950/60 rounded-2xl border border-dashed border-white/10">
+            <i data-lucide="scan-barcode" class="h-8 w-8 text-amber-400/50 mx-auto mb-1"></i>
+            Belum ada alat di-scan. Arahkan kamera HP ke QR Code atau gunakan tombol scan cepat di atas.
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      list.innerHTML = '';
+      keranjangCheckout.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.className = "p-3.5 rounded-2xl bg-royal-950/70 border border-white/10 flex items-center justify-between gap-2 text-xs";
+        row.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="h-6 w-6 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/30 font-black text-[10px] flex items-center justify-center shrink-0">
+              ${idx + 1}
+            </span>
+            <div class="min-w-0">
+              <span class="font-black text-amber-300 block truncate">${item.kode} — ${item.nama}</span>
+              <span class="text-[10px] text-slate-400">${item.lokasi} · Kondisi: ${item.kondisi}</span>
+            </div>
+          </div>
+          <button onclick="hapusDariKeranjang('${item.kode}')" class="p-1.5 rounded-xl text-rose-400 hover:bg-rose-500/20" title="Keluarkan">
+            <i data-lucide="trash-2" class="h-4 w-4"></i>
+          </button>
+        `;
+        list.appendChild(row);
+      });
+
+      lucide.createIcons();
+    }
+
+    function hapusDariKeranjang(kode) {
+      keranjangCheckout = keranjangCheckout.filter(x => x.kode !== kode);
+      renderKeranjang();
+      showToast(`Item ${kode} dikeluarkan`, "info");
+    }
+
+    function simpanTransaksiCheckout(e) {
+      e.preventDefault();
+      if (keranjangCheckout.length === 0) {
+        return showToast("⚠️ Keranjang masih kosong! Silakan scan minimal 1 alat sound.", "peringatan");
+      }
+
+      const namaAcara = document.getElementById('formNamaAcara').value;
+      const pj = document.getElementById('formNamaPJ').value;
+
+      keranjangCheckout.forEach(item => {
+        const target = DATA_ASET.find(x => x.kode === item.kode);
+        if (target) {
+          target.status = 'dipinjam';
+          target.peminjamTerakhir = `${pj} (${namaAcara})`;
+        }
+      });
+
+      playAcousticChime('celebrate');
+      showToast(`🎉 Alhamdulillah! Transaksi peminjaman untuk "${namaAcara}" sah tercatat!`, "sukses");
+      keranjangCheckout = [];
+      renderKeranjang();
+      renderGridAset(DATA_ASET);
+      showTab('dashboard');
+    }
+
+    function pinjamPaketCepat(kodePaket) {
+      showToast(`Memuat seluruh rangkaian alat untuk ${kodePaket}...`, "info");
+      if (kodePaket === 'PKT-PG-648') {
+        tambahKeKeranjang('SPK-ACT-01');
+        tambahKeKeranjang('MIX-16CH-01');
+        tambahKeKeranjang('MIC-WL-01');
+        tambahKeKeranjang('KBL-XLR-10M-01');
+      } else {
+        tambahKeKeranjang('SPK-ACT-01');
+        tambahKeKeranjang('MIC-WL-01');
+      }
+      showTab('checkout');
+    }
+
+    // -------------------------------------------------------------------------
+    // CHECK-IN & INSPEKSI
+    // -------------------------------------------------------------------------
+    const SAMPLE_ITEMS_CHECKIN = {
+      'TRX-202611-004': [
+        { kode: 'SPK-ACT-02', nama: 'Yamaha DBR15 15" Active Speaker', statusScan: false, kondisi: 'baik', catatan: '' },
+        { kode: 'MIC-WL-01', nama: 'Shure SLX24/Beta58 Wireless (Set A)', statusScan: false, kondisi: 'baik', catatan: '' },
+        { kode: 'MIC-WL-02', nama: 'Shure SLX24/Beta58 Wireless (Set B)', statusScan: false, kondisi: 'rusak_ringan', catatan: 'Spul kresek-kresek setelah dipakai' },
+        { kode: 'KBL-XLR-10M-01', nama: 'Canare L-4E6S XLR 10 Meter', statusScan: false, kondisi: 'baik', catatan: '' },
+      ],
+      'TRX-202611-005': [
+        { kode: 'MIX-16CH-01', nama: 'Yamaha MG16XU 16-Channel Mixer', statusScan: true, kondisi: 'baik', catatan: '' },
+        { kode: 'SPK-ACT-01', nama: 'Yamaha DBR15 15" Active Speaker', statusScan: true, kondisi: 'baik', catatan: '' },
+      ]
+    };
+
+    let checkinCurrentItems = [];
+
+    function muatItemCheckin(trxId) {
+      checkinCurrentItems = SAMPLE_ITEMS_CHECKIN[trxId] || [];
+      renderCheckinItems();
+    }
+
+    function renderCheckinItems() {
+      const container = document.getElementById('containerCheckinItems');
+      container.innerHTML = '';
+
+      checkinCurrentItems.forEach((item, idx) => {
+        const itemCard = document.createElement('div');
+        itemCard.className = `p-4 rounded-3xl border transition ${
+          item.statusScan ? 'bg-emerald-950/30 border-emerald-500/40' : 'glass-luxury'
+        } space-y-3`;
+
+        itemCard.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <div class="flex items-center gap-3 min-w-0">
+              <button onclick="toggleScanCheckin(${idx})" class="h-9 w-9 rounded-xl ${
+                item.statusScan ? 'bg-emerald-500 text-royal-950' : 'bg-royal-800 text-slate-400 hover:bg-royal-700'
+              } flex items-center justify-center shrink-0 transition" title="Klik verifikasi scan QR">
+                <i data-lucide="${item.statusScan ? 'check' : 'qr-code'}" class="h-4 w-4"></i>
+              </button>
+              <div class="min-w-0">
+                <span class="font-black text-white text-xs block truncate">${item.kode} — ${item.nama}</span>
+                <span class="text-[10px] ${item.statusScan ? 'text-emerald-400 font-black' : 'text-slate-400 font-bold'}">
+                  ${item.statusScan ? '✔ Terverifikasi Fisik Kembali' : '⏳ Belum di-scan pengembaliannya'}
+                </span>
+              </div>
+            </div>
+
+            <!-- Radio Pilihan Kondisi Wajib -->
+            <div class="flex items-center gap-1.5 text-xs bg-royal-950/80 p-1 rounded-2xl border border-white/10 shrink-0">
+              <label class="flex items-center gap-1 px-2.5 py-1.5 rounded-xl cursor-pointer ${item.kondisi === 'baik' ? 'bg-emerald-500 text-royal-950 font-black' : 'text-slate-300'}">
+                <input type="radio" name="kondisi-${idx}" value="baik" ${item.kondisi === 'baik' ? 'checked' : ''} onchange="ubahKondisiCheckin(${idx}, 'baik')" class="hidden">
+                <span>✔ Baik</span>
+              </label>
+
+              <label class="flex items-center gap-1 px-2.5 py-1.5 rounded-xl cursor-pointer ${item.kondisi === 'rusak_ringan' ? 'bg-amber-400 text-royal-950 font-black' : 'text-slate-300'}">
+                <input type="radio" name="kondisi-${idx}" value="rusak_ringan" ${item.kondisi === 'rusak_ringan' ? 'checked' : ''} onchange="ubahKondisiCheckin(${idx}, 'rusak_ringan')" class="hidden">
+                <span>⚠️ Ringan</span>
+              </label>
+
+              <label class="flex items-center gap-1 px-2.5 py-1.5 rounded-xl cursor-pointer ${item.kondisi === 'rusak_berat' ? 'bg-rose-500 text-white font-black' : 'text-slate-300'}">
+                <input type="radio" name="kondisi-${idx}" value="rusak_berat" ${item.kondisi === 'rusak_berat' ? 'checked' : ''} onchange="ubahKondisiCheckin(${idx}, 'rusak_berat')" class="hidden">
+                <span>❌ Berat</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Form Tambahan Khusus Jika Rusak (Wajib Catatan & Foto) -->
+          ${item.kondisi !== 'baik' ? `
+            <div class="p-3.5 rounded-2xl bg-rose-950/40 border border-rose-500/40 text-xs space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="font-black text-rose-300 flex items-center gap-1 text-[11px]">
+                  <i data-lucide="alert-circle" class="h-3.5 w-3.5 text-rose-400"></i>
+                  <span>Laporan Kerusakan Masuk Riwayat Peminjam:</span>
+                </span>
+                <span class="px-2 py-0.5 rounded-lg bg-rose-500/30 text-rose-300 font-black text-[9px] uppercase border border-rose-400/40">Wajib Diisi</span>
+              </div>
+              <input type="text" value="${item.catatan}" oninput="checkinCurrentItems[${idx}].catatan = this.value" placeholder="Jelaskan detail kerusakan (misal: spul putus, jack bengkok, bodi pecah)..." class="w-full px-3.5 py-2 rounded-xl glass-luxury font-medium text-xs text-white focus:outline-none focus:ring-1 focus:ring-rose-400" required>
+              <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1">
+                <span>📸 Foto bukti fisik kerusakan wajib dilampirkan via kamera</span>
+                <button type="button" onclick="showToast('Kamera bukti kerusakan dibuka', 'info')" class="px-2.5 py-1 rounded-xl bg-royal-800 border border-rose-400/30 text-rose-300 font-bold flex items-center gap-1">
+                  <i data-lucide="camera" class="h-3 w-3"></i> Ambil Foto
+                </button>
+              </div>
+            </div>
+          ` : ''}
+        `;
+
+        container.appendChild(itemCard);
+      });
+
+      lucide.createIcons();
+    }
+
+    function toggleScanCheckin(idx) {
+      checkinCurrentItems[idx].statusScan = !checkinCurrentItems[idx].statusScan;
+      if (checkinCurrentItems[idx].statusScan) {
+        playAcousticChime('scan');
+        showToast(`✔ ${checkinCurrentItems[idx].kode} terverifikasi kembali`, "sukses");
+      }
+      renderCheckinItems();
+    }
+
+    function ubahKondisiCheckin(idx, kondisiBaru) {
+      checkinCurrentItems[idx].kondisi = kondisiBaru;
+      playAcousticChime('click');
+      if (kondisiBaru !== 'baik') {
+        showToast(`Peringatan: ${checkinCurrentItems[idx].kode} dicatat rusak. Kolom keterangan & foto wajib diisi.`, "peringatan");
+      }
+      renderCheckinItems();
+    }
+
+    function selesaikanCheckin() {
+      const belumScan = checkinCurrentItems.filter(x => !x.statusScan);
+      if (belumScan.length > 0) {
+        playAcousticChime('reject');
+        return showToast(`⚠️ Masih ada ${belumScan.length} alat yang belum di-scan pengembaliannya!`, "gagal");
+      }
+
+      playAcousticChime('celebrate');
+      showToast("🎉 Alhamdulillah! Seluruh alat terinspeksi dan transaksi selesai.", "sukses");
+      showTab('dashboard');
+    }
+
+    // -------------------------------------------------------------------------
+    // AUDIT & TRACEABILITY LOG
+    // -------------------------------------------------------------------------
+    function tampilkanAuditAlat(kode) {
+      document.getElementById('pilihAlatAudit').value = kode;
+      const container = document.getElementById('containerKronologiAudit');
+
+      if (kode === 'MIC-WL-03') {
+        container.innerHTML = `
+          <div class="flex items-start justify-between border-b border-white/10 pb-2.5">
+            <div>
+              <span class="font-black text-sm text-white block">MIC-WL-03 — Shure SLX24/Beta58 Wireless</span>
+              <span class="text-[11px] text-rose-400 font-black">Status Terkini: ❌ Rusak Berat (Perlu Servis Bengkel)</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-400/30 font-black text-[10px]">
+              Insiden Terbuka
+            </span>
+          </div>
+
+          <div class="space-y-3 pt-2">
+            <div class="relative pl-6 border-l-2 border-rose-500 space-y-1">
+              <div class="absolute -left-1.5 top-0.5 h-3 w-3 rounded-full bg-rose-500"></div>
+              <span class="text-[10px] font-bold text-slate-400">22 Nov 2026 · 22:30 WIB (Pengembalian)</span>
+              <p class="font-black text-rose-300">Terjadi Kerusakan: Spul Mic Mati Total</p>
+              <p class="text-slate-300">Peminjam: <b>Ust. Fauzi (Drama Contest Asrama Saudi)</b>. Catatan: Mic terjatuh dari panggung saat adegan. Petugas penerima: <b>Ust. Rizky Pratama</b>.</p>
+            </div>
+
+            <div class="relative pl-6 border-l-2 border-slate-700 space-y-1">
+              <div class="absolute -left-1.5 top-0.5 h-3 w-3 rounded-full bg-slate-600"></div>
+              <span class="text-[10px] font-bold text-slate-400">22 Nov 2026 · 18:30 WIB (Check-Out)</span>
+              <p class="font-bold text-slate-200">Dipinjam untuk Acara Drama Contest Asrama</p>
+              <p class="text-slate-400">Kondisi saat keluar: <b>Baik (Normal)</b>. Petugas penyerah: Ust. Rizky Pratama.</p>
+            </div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="flex items-start justify-between border-b border-white/10 pb-2.5">
+            <div>
+              <span class="font-black text-sm text-white block">${kode}</span>
+              <span class="text-[11px] text-emerald-400 font-black">Status Terkini: ✔ Baik (Siap Pakai di Rak)</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-black text-[10px]">
+              Kondisi Prima
+            </span>
+          </div>
+
+          <div class="space-y-3 pt-2">
+            <div class="relative pl-6 border-l-2 border-emerald-500 space-y-1">
+              <div class="absolute -left-1.5 top-0.5 h-3 w-3 rounded-full bg-emerald-500"></div>
+              <span class="text-[10px] font-bold text-slate-400">Hari ini · 07:00 WIB</span>
+              <p class="font-black text-white">Pengecekan Rutin Gudang</p>
+              <p class="text-slate-300">Fungsi suara jernih, konektor bersih, siap pakai untuk peminjaman selanjutnya.</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // SCANNER & QR MODAL
+    // -------------------------------------------------------------------------
+    function bukaModalScanner(context) {
+      scannerContext = context;
+      playAcousticChime('click');
+      const modal = document.getElementById('modalScanner');
+      const title = document.getElementById('scannerModalTitle');
+
+      if (context === 'checkout') title.innerText = "Scan QR Check-Out (Pintu Keluar)";
+      else if (context === 'checkin') title.innerText = "Scan QR Check-In (Pintu Masuk)";
+      else title.innerText = "Scan QR Audit Jejak Rekam Alat";
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function tutupModalScanner() {
+      document.getElementById('modalScanner').classList.add('hidden');
+    }
+
+    function eksekusiHasilScan(kode) {
+      tutupModalScanner();
+      if (scannerContext === 'checkout') {
+        tambahKeKeranjang(kode);
+      } else if (scannerContext === 'checkin') {
+        const itemIdx = checkinCurrentItems.findIndex(x => x.kode === kode);
+        if (itemIdx >= 0) {
+          toggleScanCheckin(itemIdx);
+        } else {
+          playAcousticChime('reject');
+          showToast(`Kode ${kode} bukan bagian dari transaksi ini!`, "peringatan");
+        }
+      } else {
+        showTab('audit');
+        tampilkanAuditAlat(kode);
+      }
+    }
+
+    function cetakQRBarang(kode, nama, lokasi) {
+      playAcousticChime('click');
+      document.getElementById('labelKodeBarang').innerText = kode;
+      document.getElementById('labelNamaBarang').innerText = nama;
+      document.getElementById('labelLokasiRak').innerText = lokasi;
+
+      const display = document.getElementById('qrcodeDisplay');
+      display.innerHTML = '';
+
+      new QRCode(display, {
+        text: `GONTOR4-SOUND-${kode}`,
+        width: 140,
+        height: 140,
+        colorDark : "#061122",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+
+      document.getElementById('modalCetakQR').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function tutupModalQR() {
+      document.getElementById('modalCetakQR').classList.add('hidden');
+    }
+
+    // -------------------------------------------------------------------------
+    // HIGH-END ACOUSTIC SOUND CHIMES (WEB AUDIO API)
+    // -------------------------------------------------------------------------
+    function playAcousticChime(type) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'scan') {
+          // Acoustic glass ping
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(987.77, ctx.currentTime); // B5
+          osc.frequency.exponentialRampToValueAtTime(1318.51, ctx.currentTime + 0.08); // E6
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.3);
+        } else if (type === 'reject') {
+          // Low woodblock thud
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(180, ctx.currentTime);
+          osc.frequency.setValueAtTime(130, ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.3, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.35);
+        } else if (type === 'celebrate') {
+          // Major arpeggio
+          const notes = [523.25, 659.25, 783.99, 1046.50]; // C E G C
+          notes.forEach((freq, idx) => {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.type = 'sine';
+            o.frequency.value = freq;
+            o.connect(g);
+            g.connect(ctx.destination);
+            const start = ctx.currentTime + idx * 0.07;
+            g.gain.setValueAtTime(0.12, start);
+            g.gain.exponentialRampToValueAtTime(0.001, start + 0.4);
+            o.start(start);
+            o.stop(start + 0.4);
+          });
+        } else {
+          // Gentle click
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(600, ctx.currentTime);
+          gain.gain.setValueAtTime(0.05, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.06);
+        }
+      } catch (e) {
+        // audio context blocked
+      }
+    }
+
+    function showToast(pesan, jenis = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      
+      const border = jenis === 'sukses'
+        ? 'border-emerald-400/50 bg-emerald-950/90 text-emerald-200'
+        : jenis === 'gagal'
+        ? 'border-rose-400/50 bg-rose-950/90 text-rose-200'
+        : jenis === 'peringatan'
+        ? 'border-amber-400/50 bg-amber-950/90 text-amber-200'
+        : 'border-white/20 bg-royal-950/90 text-slate-200';
+
+      toast.className = `p-4 rounded-2xl glass-luxury ${border} font-bold text-xs shadow-2xl flex items-center gap-2.5 max-w-sm pointer-events-auto transform transition duration-300 translate-y-3 opacity-0`;
+      toast.innerHTML = `<span>${pesan}</span>`;
+
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-3', 'opacity-0');
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-3', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function bukaModalTambahAlat() {
+      playAcousticChime('click');
+      showToast("Formulir penambahan perangkat sound baru siap dihubungkan ke Supabase.", "info");
+    }
+
+    function cetakLaporanAudit() {
+      playAcousticChime('celebrate');
+      showToast("Menyiapkan dokumen audit kesehatan aset format F4...", "sukses");
+      window.print();
+    }
+  </script>
+</body>
+</html>

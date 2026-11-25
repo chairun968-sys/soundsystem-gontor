@@ -1,0 +1,19 @@
+{
+  "name": "soundsystem-gontor",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Sistem Informasi Manajemen & Peminjaman Inventaris Sound System Pondok Modern Darussalam Gontor Kampus 4",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^1.16.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "vite": "^5.4.11"
+  }
+}
